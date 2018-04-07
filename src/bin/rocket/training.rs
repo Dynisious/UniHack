@@ -6,12 +6,6 @@ use std::path::Path;
 
 use results::COORDINATES;
 
-#[derive(FromForm)]
-pub struct Scores {
-    model_a: f32,
-    model_b: f32,
-}
-
 #[get("/training")]
 pub fn training_mode() -> Option<NamedFile> {
     NamedFile::open(Path::new("statics/training.html")).ok()
@@ -42,13 +36,11 @@ pub fn neural_training(
     ))
 }
 
-#[post("/training", data = "<scores>")]
-pub fn neural_training_completion(scores: Form<Scores>) {
-    let model1_value = scores.get().model_a;
-    let model2_value = scores.get().model_b;
+#[get("/training/<kill_win>")]
+pub fn neural_training_completion(kill_win: bool) {
     let mut keep_path = "neural_networks/model_a";
     let mut kill_path = "neural_networks/model_b";
-    if model1_value<model2_value {
+    if kill_win {
         let temp = keep_path;
         keep_path = kill_path;
         kill_path = temp;

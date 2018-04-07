@@ -1,4 +1,4 @@
-#![feature(plugin)]
+#![feature(plugin, custom_derive)]
 #![plugin(rocket_codegen)]
 
 extern crate UniHack;
@@ -8,6 +8,7 @@ mod assets;
 mod index;
 mod quiz;
 mod results;
+mod training;
 
 fn rocket() -> rocket::Rocket {
     rocket::ignite().mount(
@@ -18,7 +19,10 @@ fn rocket() -> rocket::Rocket {
             assets::get_asset,
             quiz::quiz_page,
             results::get_neural_results,
-            results::return_results
+            results::return_results,
+            training::training_mode,
+            training::neural_training,
+            training::neural_training_completion,
         ],
     )
 }

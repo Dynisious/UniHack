@@ -4,6 +4,12 @@
 extern crate UniHack;
 extern crate rocket;
 
+mod index;
+
+fn rocket() -> rocket::Rocket {
+    rocket::ignite().mount("/", routes![index::index])
+}
+
 fn main() {
-    UniHack::hello();
+    rocket().launch();
 }

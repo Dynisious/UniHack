@@ -1,4 +1,6 @@
 
+use std::hash::{Hash, Hasher};
+
 #[derive(Clone)]
 pub struct Neuron {
     pub threshold: f32,
@@ -21,6 +23,17 @@ impl Neuron {
 impl Default for Neuron {
     fn default() -> Self {
         Self::new(0.0, Vec::with_capacity(0), 0.0)
+    }
+}
+
+impl Hash for Neuron {
+    fn hash<H: Hasher>(&self, hasher: &mut H) {
+        self.threshold.to_bits().hash(hasher);
+        for (index, weight) in self.outputs.iter() {
+            index.hash(hasher);
+            weight.to_bits().hash(hasher);
+        }
+        self.state.to_bits().hash(hasher);
     }
 }
 

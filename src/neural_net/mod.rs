@@ -1,4 +1,5 @@
 
+use std::hash::{Hash, Hasher};
 use std::collections::HashMap;
 
 mod neuron;
@@ -26,8 +27,8 @@ impl NeuralNet {
         
         self
     }
-    pub fn verify(&mut self) -> () {
-        for layer in 0..self.layers.len() {
+    pub fn integrety(mut self) -> Self {
+        for layer in 1..(LAYER_SIZE - 1) {
             for index in 0..LAYER_SIZE {
                 if let Some(ref mut neuron) = self.layers[layer].get_mut(&index)
                     .map(|neuron| neuron.clone()) {
@@ -38,6 +39,8 @@ impl NeuralNet {
                 }
             }
         }
+        
+        self
     }
     pub fn run(&mut self) -> [usize; NEURAL_OUTPUT] {
         for layer in 0..self.layers.len() {
@@ -68,7 +71,50 @@ impl NeuralNet {
         
         return res;
     }
-    pub fn reproduce(left: &Self, right: &Self) -> Self {
-        left.clone()
+    pub fn reproduce(mut res: Self, other: &Self) -> Self {
+        use std::collections::hash_map::{DefaultHasher, Entry::*};
+        
+        let mut hasher = DefaultHasher::default();
+        
+        res.hash(&mut hasher);
+        other.hash(&mut hasher);
+        for layer in 1..(LAYER_SIZE - 1) {
+            for index in 0..LAYER_SIZE {
+                let other = other.layers[layer].get(&index);
+                
+                match res.layers[layer].entry(index) {
+                    Occupied(mut occupied) => match other {
+                        Some(other_neuron) => {
+                            let res_neuron = occupied.get_mut();
+                            
+                            other_neuron.hash(&mut hasher);
+                            res_neuron.hash(&mut hasher);
+                            
+                            match hasher.finish() % 3 {
+                                _ => unimplemented!(),
+                            }
+                        },
+                        None => unimplemented!(),
+                    },
+                    Vacant(mut vacant) => match other {
+                        Some(other_neuron) => unimplemented!(),
+                        None => unimplemented!(),
+                    },
+                }
+            }
+        }
+        
+        res
+    }
+}
+
+impl Hash for NeuralNet {
+    fn hash<H: Hasher>(&self, hasher: &mut H) {
+        for layer in self.layers.iter() {
+            for (index, neuron) in layer.iter() {
+                index.hash(hasher);
+                neuron.hash(hasher);
+            }
+        }
     }
 }

@@ -1,23 +1,43 @@
-$(document).ready(function() {
-    a = sessionStorage.getItem('places')
-    console.log(a);
-});
-
 function initMap() {
-    var markers = a;
-    var latlng = new google.maps.LatLng(39.305, -76.617);
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: latlng,
-      zoom: 12
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+function initMap() {
+    latlongs = [];
+    places = JSON.parse(sessionStorage.getItem('places'));
+    console.log(places);
+    places.forEach(function(i){
+        i = i.split(",")
+        latlongs.push({lat: parseFloat(i[0]), lng: parseFloat(i[1])});
     });
-    var marker = new google.maps.Marker({
-      position: latlng,
-      map: map
+    console.log(latlongs);
+    markers = [];
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: {lat:37.91369, lng:145.125}
     });
-    var marker2 = new google.maps.Marker({
-      position: latlng2,
-      map: map
+//    var marker = (new google.maps.Marker({
+//      position: {lat:37.91369, lng:145.125},
+//      map: map
+//    }));
+    //    console.log(places[0]);
+    //    var markers = [];
+    
+    latlongs.forEach(function(i){
+        markers.push(new google.maps.Marker({
+          position: i,
+          map: map
+        }));
     });
+    
+    
+//    console.log(markers[0].getPosition());
     var bounds = new google.maps.LatLngBounds();
     for (var i = 0; i < markers.length; i++) {
      bounds.extend(markers[i].getPosition());

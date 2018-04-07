@@ -1,13 +1,13 @@
 
 #[derive(Clone)]
 pub struct Neuron {
-    threshold: f32,
-    outputs: Vec<(usize, usize)>,
+    pub threshold: f32,
+    pub outputs: Vec<(usize, f32)>,
     pub state: f32,
 }
 
 impl Neuron {
-    pub fn new(threshold: f32, outputs: Vec<(usize, usize)>, state: f32) -> Self {
+    pub fn new(threshold: f32, outputs: Vec<(usize, f32)>, state: f32) -> Self {
         Self { threshold, outputs, state }
     }
     pub fn clean(mut self) -> Self {

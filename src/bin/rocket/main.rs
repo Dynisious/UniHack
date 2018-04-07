@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 #![feature(plugin)]
 #![plugin(rocket_codegen)]
 
@@ -15,4 +13,4 @@ fn rocket() -> rocket::Rocket {
 fn main() {
     rocket().launch();
 }
->>>>>>> master
+

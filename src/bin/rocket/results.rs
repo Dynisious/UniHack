@@ -17,12 +17,12 @@ pub fn get_neural_results(a: usize, b: usize, c: usize, d: usize, e: usize) -> R
     let output = ::UniHack::neural_net(&input,neural_model).0;
     Ok(format!(
         "{},{};{},{};{},{}",
-        COORDINATES[output[0]].0,
-        COORDINATES[output[0]].1,
-        COORDINATES[output[1]].0,
-        COORDINATES[output[1]].1,
-        COORDINATES[output[2]].0,
-        COORDINATES[output[2]].1
+        COORDINATES[output[0] % 5].0,
+        COORDINATES[output[0] % 5].1,
+        COORDINATES[output[1] % 5].0,
+        COORDINATES[output[1] % 5].1,
+        COORDINATES[output[2] % 5].0,
+        COORDINATES[output[2] % 5].1
     ))
 }
 

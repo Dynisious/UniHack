@@ -42,6 +42,13 @@ impl NeuralNet {
         
         self
     }
+    pub fn inputs(mut self, inputs: &[usize]) -> Self {
+        for input in inputs.iter() {
+            self.layers[0].get_mut(input).expect("First layer is missing a Neuron!").state = 1.0
+        }
+        
+        self
+    }
     pub fn run(&mut self) -> [usize; NEURAL_OUTPUT] {
         for layer in 0..self.layers.len() {
             for index in 0..LAYER_SIZE {

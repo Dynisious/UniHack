@@ -78,27 +78,28 @@ impl NeuralNet {
         
         return res;
     }
-    pub fn reproduce(mut res: Self, other: &Self) -> Self {
+    pub fn reproduce(mut self, other: &Self) -> Self {
         use std::collections::hash_map::{DefaultHasher, Entry::*};
+        println!("Reproduction");
         
         let mut hasher = DefaultHasher::default();
         
-        res.hash(&mut hasher);
+        self.hash(&mut hasher);
         other.hash(&mut hasher);
         for layer in 1..(LAYER_SIZE - 1) {
             for index in 0..LAYER_SIZE {
                 let other = other.layers[layer].get(&index);
                 
-                match res.layers[layer].entry(index) {
+                match self.layers[layer].entry(index) {
                     Occupied(mut occupied) => match other {
                         Some(other_neuron) => {
-                            let res_neuron = occupied.get_mut();
+                            let self_neuron = occupied.get_mut();
                             
                             other_neuron.hash(&mut hasher);
-                            res_neuron.hash(&mut hasher);
+                            self_neuron.hash(&mut hasher);
                             match hasher.finish() % 3 {
-                                0 => *res_neuron = res_neuron.clone().reproduce(other_neuron),
-                                1 => *res_neuron = other_neuron.clone(),
+                                0 => *self_neuron = self_neuron.clone().reproduce(other_neuron),
+                                1 => *self_neuron = other_neuron.clone(),
                                 2 => (),
                                 _ => panic!(),
                             }
@@ -108,9 +109,9 @@ impl NeuralNet {
                             match hasher.finish() % 3 {
                                 0 => { occupied.remove(); },
                                 1 => {
-                                    let res_neuron = occupied.get_mut();
+                                    let self_neuron = occupied.get_mut();
                                     
-                                    *res_neuron = res_neuron.clone();
+                                    *self_neuron = self_neuron.clone().mutate();
                                 },
                                 2 => (),
                                 _ => panic!(),
@@ -122,14 +123,14 @@ impl NeuralNet {
                             other_neuron.hash(&mut hasher);
                             match hasher.finish() % 3 {
                                 0 => { vacant.insert(other_neuron.clone()); },
-                                1 => { vacant.insert(other_neuron.clone()); },
+                                1 => { vacant.insert(other_neuron.clone().mutate()); },
                                 2 => (),
                                 _ => panic!(),
                             }
                         },
                         None => {
                             match hasher.finish() % 2 {
-                                0 => { vacant.insert(Neuron::default()); },
+                                0 => { vacant.insert(Neuron::default().mutate()); },
                                 1 => (),
                                 _ => panic!(),
                             }
@@ -139,7 +140,7 @@ impl NeuralNet {
             }
         }
         
-        res.integrety()
+        self.integrety()
     }
 }
 

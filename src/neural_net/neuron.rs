@@ -72,6 +72,50 @@ impl Neuron {
         self.state = 0.0;
         self
     }
+    pub fn mutate(mut self) -> Self {
+        use std::collections::hash_map::DefaultHasher;
+        
+        let mut hasher = DefaultHasher::default();
+        
+        ::std::time::SystemTime::now().duration_since(::std::time::UNIX_EPOCH).unwrap().subsec_nanos().hash(&mut hasher);
+        self.hash(&mut hasher);
+        
+        if hasher.finish() % 2 == 0 { println!("Mutation"); }
+        match hasher.finish() % 2 {
+            0 => self.threshold += ((hasher.finish() as f32 / 1000.0) % 3.0) - 1.0,
+            1 => (),
+            _ => panic!(),
+        }
+        
+        self.outputs = self.outputs.iter()
+            .filter_map(|(res_index, mut res_weight)| {
+                res_index.hash(&mut hasher);
+                res_weight.to_bits().hash(&mut hasher);
+                
+                if hasher.finish() % 3 == 0 { println!("Mutation"); }
+                match hasher.finish() % 3 {
+                    0 => res_weight += ((hasher.finish() as f32 / 1000.0) % 3.0) - 1.0,
+                    1 => (),
+                    2 => return None,
+                    _ => panic!(),
+                }
+                Some((*res_index, res_weight))
+            }).collect();
+        
+        self.hash(&mut hasher);
+        if hasher.finish() % 2 == 0 {
+            println!("Mutation");
+            self.outputs.push((
+                hasher.finish() as usize % super::LAYER_SIZE,
+                ((hasher.finish() as f32 / 1000.0) % 3.0) - 1.0
+            ));
+        }
+        self.outputs.sort_by(|(index_a, _), (index_b, _)| index_a.cmp(&index_b));
+        self.outputs.dedup_by(|(index_a, _), (index_b, _)| index_a == index_b);
+        
+        self.state = 0.0;
+        self
+    }
 }
 
 impl Default for Neuron {

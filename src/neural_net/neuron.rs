@@ -1,7 +1,7 @@
 
 use std::hash::{Hash, Hasher};
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct Neuron {
     pub threshold: f32,
     pub outputs: Vec<(usize, f32)>,

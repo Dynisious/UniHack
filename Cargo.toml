@@ -6,3 +6,6 @@ authors = ["Dynisious <daniel.bechaz@gmail.com>"]
 [dependencies]
 rocket_codegen = "*"
 rocket = "*"
+serde = "*"
+serde_derive = "*"
+serde_json = "*"

@@ -66,6 +66,8 @@ impl Neuron {
                 ((hasher.finish() as f32 / 1000.0) % 3.0) - 1.0
             ));
         }
+        self.outputs.sort_by(|(index_a, _), (index_b, _)| index_a.cmp(&index_b));
+        self.outputs.dedup_by(|(index_a, _), (index_b, _)| index_a == index_b);
         
         self.state = 0.0;
         self

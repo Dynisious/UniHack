@@ -1,3 +1,5 @@
+#![feature(plugin)]
+#![plugin(rocket_codegen)]
 
 #![feature(plugin)]
 #![plugin(rocket_codegen)]

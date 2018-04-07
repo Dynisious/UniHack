@@ -9,5 +9,5 @@ pub fn index() -> Option<NamedFile> {
 
 #[get("/<filename>")]
 pub fn get_file(filename: String) -> Option<NamedFile> {
-    NamedFile::open(Path::new("statics/assets/").join(filename)).ok()
+    NamedFile::open(Path::new("statics").join(filename)).ok()
 }

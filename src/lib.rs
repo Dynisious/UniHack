@@ -1,6 +1,6 @@
 
-pub fn hello() {
-    println!("Hello, World!");
+pub fn neural_net(inputs: &[usize]) -> [usize; 3] {
+    [0; 3]
 }
 
 #[cfg(test)]

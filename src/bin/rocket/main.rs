@@ -11,7 +11,7 @@ mod assets;
 mod results;
 
 fn rocket() -> rocket::Rocket {
-    rocket::ignite().mount("/", routes![index::index,assets::get_file,quiz::quiz_page,results::get_neural_results, results::return_results])
+    rocket::ignite().mount("/", routes![index::index,index::get_file,assets::get_asset,quiz::quiz_page,results::get_neural_results, results::return_results])
 }
 
 fn main() {

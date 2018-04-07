@@ -3,5 +3,5 @@ use std::path::Path;
 
 #[get("/assets/<filename>")]
 pub fn get_file(filename: String) -> Option<NamedFile> {
-    NamedFile::open(Path::new("assets/").join(filename))
+    NamedFile::open(Path::new("assets/").join(filename)).ok()
 }

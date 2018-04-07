@@ -1,5 +1,6 @@
 use rocket::response::NamedFile;
 use std::path::Path;
+use std::fs::File;
 
 static COORDINATES: &'static [(f32, f32)] = &[
     (37.9136876, 145.124993),
@@ -10,10 +11,11 @@ static COORDINATES: &'static [(f32, f32)] = &[
 ];
 
 #[get("/results/<a>/<b>/<c>/<d>/<e>")]
-pub fn get_neural_results(a: usize, b: usize, c: usize, d: usize, e: usize) -> String {
+pub fn get_neural_results(a: usize, b: usize, c: usize, d: usize, e: usize) -> Result<String, String> {
     let input = [a, b, c, d, e];
-    let output = super::UniHack::neural_net(&input);
-    format!(
+    let neural_model = ::UniHack::load_network(File::open("neural_networks/neural_model").map_err(|_| "Neural file not found.")?).map_err(|_| "Neural file could not be parsed.")?;
+    let output = ::UniHack::neural_net(&input,neural_model).0;
+    Ok(format!(
         "{},{};{},{};{},{}",
         COORDINATES[output[0]].0,
         COORDINATES[output[0]].1,
@@ -21,7 +23,7 @@ pub fn get_neural_results(a: usize, b: usize, c: usize, d: usize, e: usize) -> S
         COORDINATES[output[1]].1,
         COORDINATES[output[2]].0,
         COORDINATES[output[2]].1
-    )
+    ))
 }
 
 #[get("/itinerary")]

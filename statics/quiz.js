@@ -37,8 +37,8 @@ $(document).ready(function() {
                     success: function(result){
                         var a = result.split(";");
                         console.log(a);
-                        window.open("./itinerary","_self")
-                        sessionStorage.setItem('places', JSON.stringify(a))
+                        sessionStorage.setItem('places', JSON.stringify(a));
+                        window.open("./itinerary","_self");
                     }});
             
         }else{

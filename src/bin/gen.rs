@@ -5,7 +5,7 @@ use std::fs::File;
 
 fn main() {
     let mut model = UniHack::load_network(
-        File::open(".\\neural_networks\\neural_model_test").unwrap(),
+        File::open(".\\neural_networks\\model_a").unwrap(),
     ).unwrap();
 
     for _ in 0..500 {
@@ -13,7 +13,7 @@ fn main() {
     }
 
     UniHack::store_network(
-        File::create(".\\neural_networks\\neural_model_test").unwrap(),
+        File::create(".\\neural_networks\\model_a").unwrap(),
         &model,
     ).unwrap()
 }

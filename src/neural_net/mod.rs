@@ -11,11 +11,11 @@ pub const NEURAL_OUTPUT: usize = 3;
 
 #[derive(Clone, Serialize, Deserialize)]
 pub struct NeuralNet {
-    layers: [HashMap<usize, Neuron>; LAYER_SIZE],
+    layers: Vec<HashMap<usize, Neuron>>,
 }
 
 impl NeuralNet {
-    pub fn new(layers: [HashMap<usize, Neuron>; LAYER_SIZE]) -> Self {
+    pub fn new(layers: Vec<HashMap<usize, Neuron>>) -> Self {
         Self { layers }
     }
     pub fn clean(mut self) -> Self {
@@ -140,6 +140,19 @@ impl NeuralNet {
         }
         
         res.integrety()
+    }
+}
+
+impl Default for NeuralNet {
+    fn default() -> Self {
+        use std::iter::{repeat, FromIterator};
+        
+        let mut layers = vec![HashMap::with_capacity(LAYER_SIZE); LAYER_SIZE];
+        
+        layers[0] = HashMap::from_iter(repeat(Neuron::default()).take(LAYER_SIZE).enumerate());
+        layers[LAYER_SIZE - 1] = layers[0].clone();
+        
+        NeuralNet::new(layers)
     }
 }
 

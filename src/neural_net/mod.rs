@@ -9,7 +9,7 @@ use self::neuron::*;
 pub const LAYER_SIZE: usize = 20;
 pub const NEURAL_OUTPUT: usize = 3;
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct NeuralNet {
     layers: [HashMap<usize, Neuron>; LAYER_SIZE],
 }

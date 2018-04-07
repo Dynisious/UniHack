@@ -89,22 +89,50 @@ impl NeuralNet {
                             
                             other_neuron.hash(&mut hasher);
                             res_neuron.hash(&mut hasher);
-                            
                             match hasher.finish() % 3 {
-                                _ => unimplemented!(),
+                                0 => *res_neuron = res_neuron.clone().reproduce(other_neuron),
+                                1 => *res_neuron = other_neuron.clone(),
+                                2 => (),
+                                _ => panic!(),
                             }
                         },
-                        None => unimplemented!(),
+                        None => {
+                            occupied.get_mut().hash(&mut hasher);
+                            match hasher.finish() % 3 {
+                                0 => { occupied.remove(); },
+                                1 => {
+                                    let res_neuron = occupied.get_mut();
+                                    
+                                    *res_neuron = res_neuron.clone();
+                                },
+                                2 => (),
+                                _ => panic!(),
+                            }
+                        },
                     },
                     Vacant(mut vacant) => match other {
-                        Some(other_neuron) => unimplemented!(),
-                        None => unimplemented!(),
+                        Some(other_neuron) => {
+                            other_neuron.hash(&mut hasher);
+                            match hasher.finish() % 3 {
+                                0 => { vacant.insert(other_neuron.clone()); },
+                                1 => { vacant.insert(other_neuron.clone()); },
+                                2 => (),
+                                _ => panic!(),
+                            }
+                        },
+                        None => {
+                            match hasher.finish() % 2 {
+                                0 => { vacant.insert(Neuron::default()); },
+                                1 => (),
+                                _ => panic!(),
+                            }
+                        },
                     },
                 }
             }
         }
         
-        res
+        res.integrety()
     }
 }
 

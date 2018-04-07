@@ -9,12 +9,10 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="./quiz.js"></script>
-		<script>
-            var recievedstring = "{{sent_string}}";
-        </script>
+        <script src="./itinerary.js"></script>
 	</head>
 	<body>
+        <div style="display:none" id="cover"></div>
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -41,20 +39,11 @@
 		<div class="container-fluid text-center">
 			<div class="row content">
 				<div class="col-sm-8 col-sm-offset-2">
-					<h1 id="quiz-question">Please click your favourite from the images below:</h1>
+					<h1 id="quiz-question">Your personal route!</h1>
 					<div class="row content">
-						<div class="col-xs-3">
-							<img id="quiz-pic-1" class="quiz-pic" class="img-rounded" alt="Cinque Terre" />
-						</div>
-						<div class="col-xs-3">
-							<img id="quiz-pic-2" class="quiz-pic" class="img-rounded" alt="Cinque Terre" />
-						</div>
-						<div class="col-xs-3">
-							<img id="quiz-pic-3" class="quiz-pic" class="img-rounded" alt="Cinque Terre" />
-						</div>
-						<div class="col-xs-3">
-							<img id="quiz-pic-4" class="quiz-pic" class="img-rounded" alt="Cinque Terre" />
-						</div>
+						<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfqBdvGWHGTd36BtYGRSCvxbgPKmYeXDU&callback=initMap">
+                            </script>
+                            <div id='map'>maps error</div>
 					</div>
 				</div>
 			</div>

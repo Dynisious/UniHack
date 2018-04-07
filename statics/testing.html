@@ -9,12 +9,11 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="./testing.js"></script>
         <script src="./quiz.js"></script>
-		<script>
-            var recievedstring = "{{sent_string}}";
-        </script>
 	</head>
 	<body>
+        <div style="display:none" id="cover"></div>
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -38,13 +37,21 @@
 				</div>
 			</div>
 		</nav>
-		<div class="container-fluid text-center">
-			<div class="row content">
-				
-			</div>
-		</div>
-		<footer class="container-fluid text-center">
-			<p>Footer Text</p>
-		</footer>
+Testing Page
+<button onclick="generate()">Generate new images</button>
+<button onclick="remove()">Delete</button>
+<button onclick="">Show Result</button>
+<div id="myDIV"></div>
+	<div class="row content">
+				<div class="row content">
+					<div id="map"></div>
+					<h1>
+									<button class="button" id="button"> YAY </button>
+								</h1>
+					<div id="map"></div>
+					<button class="button" id="button"> NAY </button>
+						<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfqBdvGWHGTd36BtYGRSCvxbgPKmYeXDU&callback=initMap">
+                            </script>
+</div>
 	</body>
 </html>

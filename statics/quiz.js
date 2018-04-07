@@ -35,7 +35,7 @@ $(document).ready(function() {
             $('.quiz-pic').off('click');
             $.ajax({url: "/results/"+images_selected.join("/"), 
                     success: function(result){
-                        var a = result.split(",");
+                        var a = result.split(";");
                         console.log(a);
                         window.open("./itinerary","_self")
                         sessionStorage.setItem('places', JSON.stringify(a))

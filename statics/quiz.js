@@ -37,7 +37,7 @@ $(document).ready(function() {
                     success: function(result){
                         var a = result.split(";");
                         console.log(a);
-                        // window.open("./itinerary","_self")
+                        window.open("./itinerary","_self")
                         sessionStorage.setItem('places', JSON.stringify(a))
                     }});
             

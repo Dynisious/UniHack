@@ -8,6 +8,7 @@ use self::neuron::*;
 pub const LAYER_SIZE: usize = 20;
 pub const NEURAL_OUTPUT: usize = 3;
 
+#[derive(Clone)]
 pub struct NeuralNet {
     layers: [HashMap<usize, Neuron>; LAYER_SIZE],
 }
@@ -67,5 +68,7 @@ impl NeuralNet {
         
         return res;
     }
-    pub fn reproduce(left: &Self, right: &Self)
+    pub fn reproduce(left: &Self, right: &Self) -> Self {
+        left.clone()
+    }
 }

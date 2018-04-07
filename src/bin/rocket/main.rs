@@ -5,5 +5,5 @@ extern crate UniHack;
 extern crate rocket;
 
 fn main() {
-    UniHack::hello();
+    // UniHack::hello();
 }

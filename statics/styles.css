@@ -33,3 +33,16 @@
     margin-top:2em;
     width:100%;
 }
+
+#cover {
+    background: url("./assets/loading.gif") no-repeat scroll center center #FFF;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+#map {
+    width: 100%;
+    height: 400px;
+    background-color: grey;
+  }

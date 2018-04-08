@@ -14,7 +14,7 @@ function shuffle(a) {
 }
 function refershimages(array){
     for(i=0;i<=4;i++){
-        $('#quiz-pic-'+(i+1)).attr({"src":"./assets/"+(array[i]+startsatone)+".png"});
+        $('#quiz-pic-'+(i+1)).attr({"src":"./assets/"+(array[i]+startsatone)+".jpg"});
         $('#quiz-pic-'+(i+1)).data( "filename", (array[images_todisp+i]+startsatone));
     }
 }
@@ -115,4 +115,23 @@ function initMaps() {
 
     map1.fitBounds(bounds);
     
+}
+
+function handleA(){
+   $.ajax({url: "/training/"+"false", 
+                    success: function(result){
+                       console.log(result)
+                       refresh();
+                    }});
+}
+function handleB(){
+    $.ajax({url: "/training/"+"true", 
+                    success: function(result){
+                        console.log(result)
+                        refresh();
+                    }});
+}
+
+function refresh(){
+    location.reload();
 }

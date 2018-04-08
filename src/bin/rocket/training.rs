@@ -11,7 +11,7 @@ use results::COORDINATES;
 // serves the training page
 #[get("/training")]
 pub fn training_mode() -> Option<NamedFile> {
-    NamedFile::open(Path::new("statics/training.html")).ok()
+    NamedFile::open(Path::new("statics/train-neural-net.html")).ok()
 }
 
 // neural_training()

@@ -2,6 +2,9 @@ use rocket::response::NamedFile;
 use std::fs::File;
 use std::path::Path;
 
+// COORDINATES
+// a constant coordinates that will be returned by the neural network
+
 pub const COORDINATES: [(f32, f32); 20] = [
     (-37.9136876, 145.124993),
     (-37.9004926, 145.1269537),
@@ -25,6 +28,11 @@ pub const COORDINATES: [(f32, f32); 20] = [
     (-37.7984926, 144.9678692),
 ];
 
+// get_neural_results()
+//
+// retrieves a GET request consisting of 5 indices from the `quiz`
+//
+// returns a formatted string consisting of 3 sets of coordinates
 #[get("/results/<a>/<b>/<c>/<d>/<e>")]
 pub fn get_neural_results(
     a: usize,
@@ -48,6 +56,9 @@ pub fn get_neural_results(
     ))
 }
 
+// return_results()
+//
+// serves the itinerary page
 #[get("/itinerary")]
 pub fn return_results() -> Option<NamedFile> {
     NamedFile::open(Path::new("statics/itinerary.html")).ok()

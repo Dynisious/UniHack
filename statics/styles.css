@@ -53,3 +53,13 @@
 #map2 {
     height:400px;
 }
+
+#addresses {
+    margin-bottom: 20px;
+}
+
+.centerize{
+    display:block;
+    margin:0 auto;
+    text-align: center;
+}

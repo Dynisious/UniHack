@@ -24,7 +24,11 @@ function initMap() {
           position: i,
           map: map
         }));
+        console.log("adding marker to: "+i["lat"]+" "+i["lng"]);
+        geocodeLatLng(map,i["lat"],i["lng"]);
     });
+    
+    console.log(addresses);
     
     
 //    console.log(markers[0].getPosition());
@@ -35,5 +39,30 @@ function initMap() {
 
     map.fitBounds(bounds);
 }
+ var addresses = [];
+function geocodeLatLng(map,lat,lng) {
+        var geocoder = new google.maps.Geocoder;
+        var latlng = {lat: parseFloat(lat), lng: parseFloat(lng)};
+        geocoder.geocode({'location': latlng}, function(results, status) {
+          if (status === 'OK') {
+            if (results[0]) {
+              map.setZoom(11);
+              var marker = new google.maps.Marker({
+                position: latlng,
+                map: map
+              });
+                
+//              infowindow.setContent(results[0].formatted_address);
+                addresses.push(results[0].formatted_address);
+                $("#addresses").html(addresses.join("<br>"));
+//              infowindow.open(map, marker);
+            } else {
+              window.alert('No results found');
+            }
+          } else {
+            window.alert('Geocoder failed due to: ' + status);
+          }
+        });
+      }
 
 

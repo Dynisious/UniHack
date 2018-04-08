@@ -1,16 +1,25 @@
 use UniHack::NeuralNet;
-use rocket::request::Form;
 use rocket::response::NamedFile;
 use std::fs::File;
 use std::path::Path;
 
+// same coordinates as the results.rs
 use results::COORDINATES;
 
+// training_mode()
+//
+// serves the training page
 #[get("/training")]
 pub fn training_mode() -> Option<NamedFile> {
     NamedFile::open(Path::new("statics/training.html")).ok()
 }
 
+// neural_training()
+//
+// retrieves a GET request consisting of the specified neural model
+// and 5 indices from the `quiz`
+//
+// returns a formatted string consisting of 3 sets of coordinates
 #[get("/training/<neural_model>/<a>/<b>/<c>/<d>/<e>")]
 pub fn neural_training(
     neural_model: String,
@@ -35,6 +44,14 @@ pub fn neural_training(
         COORDINATES[output[2]].1
     ))
 }
+
+// neural_training_completion()
+//
+// retrieved a GET requect consisting boolean
+// whether the second model is scoring better than first model
+//
+// then, overwrites the losing model
+// with the child product of the winning model and losing model
 
 #[get("/training/<kill_win>")]
 pub fn neural_training_completion(kill_win: bool) {

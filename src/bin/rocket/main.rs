@@ -10,6 +10,10 @@ mod quiz;
 mod results;
 mod training;
 
+// rocket()
+//
+// instantiates a server instance,
+// consisting of possible server routes
 fn rocket() -> rocket::Rocket {
     rocket::ignite().mount(
         "/",
@@ -27,6 +31,10 @@ fn rocket() -> rocket::Rocket {
     )
 }
 
+
+// main
+//
+// launches the app server
 fn main() {
     rocket().launch();
 }

@@ -14,7 +14,7 @@ function shuffle(a) {
 }
 function refershimages(array){
     for(i=0;i<=3;i++){
-        $('#quiz-pic-'+(i+1)).attr({"src":"./assets/"+(array[images_todisp+i]+startsatone)+".png"});
+        $('#quiz-pic-'+(i+1)).attr({"src":"./assets/"+(array[images_todisp+i]+startsatone)+".jpg"});
         $('#quiz-pic-'+(i+1)).data( "filename", (array[images_todisp+i]+startsatone));
     }
 }
